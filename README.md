@@ -67,7 +67,7 @@ const LAYERS = {
   gui: {
     label: "GUI Layer",
     color: "#0F6E56", light: "#E1F5EE", stroke: "#1D9E75",
-    desc: "PyQt6 widgets, screens, presenters, and UI components. The GUI never talks directly to domain objects — it reads ViewModels via presenters and fires controller commands.",
+    desc: "PyQt widgets, screens, presenters, and UI components. The GUI never talks directly to domain objects — it reads ViewModels via presenters and fires controller commands.",
     classes: [
       { id:"App",                  role:"Main QMainWindow / entry point",    fields:["-_controller: AppController","-_router: ScreenRouter"], methods:["+__init__(controller)","+closeEvent(event)"] },
       { id:"ScreenRouter",         role:"Screen navigation manager",         fields:["-_stack: QStackedWidget","-_screens: Dict","-_history: list"], methods:["+register(name,screen)","+show(name)","+back()"] },
