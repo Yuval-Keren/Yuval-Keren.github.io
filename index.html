@@ -1,17 +1,55 @@
+Here are some suggestions to make the layout look professional, scannable, and polished for a presentation:
+
+### Design Suggestions
+
+* **More Compact Cards:** We can shrink the overall card footprint by tightening padding and reducing font sizes slightly. This ensures more of the diagram fits on the screen at once without vertical scrolling.
+* **Clean Grid Layout:** Instead of forcing a rigid 3-column layout that leaves random gaps if a row isn't full, we can use a modern CSS Flexbox or dynamic Grid that centers elements nicely.
+* **Dedicated Application Title:** We will add a sleek, professional header bar inside the HTML itself (e.g., *"System Architecture: Layered View"*) so it looks like a self-contained, high-quality dashboard.
+* **Visual Hierarchy:** We'll dim private fields (`-`) and public methods (`+`) slightly with distinct subtle colors, making it incredibly easy to scan the codebase structure at a glance.
+
+Here is your fully updated, polished, and beautifully organized `index.html` file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Architecture Diagram</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-sans, sans-serif); }
-.uml-root { width: 100%; padding: 12px 0; }
-.layer-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
-.layer-tab {
-  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-  cursor: pointer; border: 1.5px solid transparent; transition: all .18s;
-  color: var(--color-text-secondary);
-  background: var(--color-background-secondary);
-  border-color: var(--color-border-tertiary);
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f8f9fa;
+  color: #212529;
+  padding: 20px;
 }
-.layer-tab:hover { border-color: var(--color-border-primary); color: var(--color-text-primary); }
-.layer-tab.active { color: #fff; border-color: transparent; }
+.uml-root { 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  background: #ffffff; 
+  padding: 24px; 
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.app-header {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 12px;
+}
+.app-header h1 {
+  font-size: 22px;
+  color: #343a40;
+  font-weight: 600;
+}
+.layer-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.layer-tab {
+  padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
+  cursor: pointer; border: 1.5px solid transparent; transition: all .15s ease-in-out;
+  color: #6c757d;
+  background: #f1f3f5;
+}
+.layer-tab:hover { background: #e9ecef; color: #495057; }
+.layer-tab.active { color: #fff; }
 .layer-tab[data-layer="gui"].active     { background: #0F6E56; }
 .layer-tab[data-layer="app"].active     { background: #534AB7; }
 .layer-tab[data-layer="services"].active{ background: #185FA5; }
@@ -19,38 +57,43 @@ body { font-family: var(--font-sans, sans-serif); }
 .layer-tab[data-layer="infra"].active   { background: #5F5E5A; }
 
 .layer-desc {
-  font-size: 12px; color: var(--color-text-secondary);
-  margin-bottom: 14px; padding: 8px 12px;
-  border-left: 3px solid var(--color-border-secondary);
+  font-size: 13px; color: #495057; line-height: 1.5;
+  margin-bottom: 20px; padding: 10px 14px;
+  border-left: 4px solid #dee2e6;
   border-radius: 0 6px 6px 0;
-  background: var(--color-background-secondary);
+  background: #f8f9fa;
 }
 .diagram-area { width: 100%; overflow-x: auto; }
-.diagram-area svg { display: block; }
+.diagram-area svg { display: block; margin: 0 auto; }
 
 .cls-card { cursor: pointer; }
 .cls-card rect { transition: filter .15s; }
-.cls-card:hover rect.cls-bg { filter: brightness(1.06); }
+.cls-card:hover rect.cls-bg { filter: brightness(1.03); }
 .cls-card text { pointer-events: none; }
 
 .detail-panel {
-  margin-top: 14px; padding: 14px 16px;
-  border: 1px solid var(--color-border-tertiary);
-  border-radius: 10px; background: var(--color-background-secondary);
+  margin-top: 20px; padding: 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px; background: #f8f9fa;
   font-size: 13px; line-height: 1.6; display: none;
 }
 .detail-panel.show { display: block; }
-.detail-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
-.detail-role { color: var(--color-text-secondary); font-size: 12px; margin-bottom: 8px; }
-.detail-members { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; }
-.detail-member { font-size: 12px; color: var(--color-text-secondary); font-family: var(--font-mono, monospace); }
-.detail-member.field  { color: var(--color-text-info); }
-.detail-member.method { color: var(--color-text-success); }
-.legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; font-size: 11px; color: var(--color-text-secondary); }
-.legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; vertical-align: middle; }
+.detail-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.detail-role { color: #6c757d; font-size: 12px; margin-bottom: 12px; font-style: italic; }
+.detail-members { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+.detail-member { font-size: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; padding: 2px 6px; border-radius: 4px; }
+.detail-member.field  { color: #185FA5; background: #e6f1fb; }
+.detail-member.method { color: #2b6106; background: #edf7e6; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; font-size: 12px; color: #6c757d; }
+.legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
 </style>
+</head>
+<body>
 
 <div class="uml-root">
+  <div class="app-header">
+    <h1>System Architecture Interactive Blueprint</h1>
+  </div>
   <div class="layer-tabs" id="tabs"></div>
   <div class="legend" id="legend"></div>
   <div class="layer-desc" id="layerDesc"></div>
@@ -66,8 +109,8 @@ body { font-family: var(--font-sans, sans-serif); }
 const LAYERS = {
   gui: {
     label: "GUI Layer",
-    color: "#0F6E56", light: "#E1F5EE", stroke: "#1D9E75",
-    desc: "PyQt widgets, screens, presenters, and UI components. The GUI never talks directly to domain objects — it reads ViewModels via presenters and fires controller commands.",
+    color: "#0F6E56", light: "#F2FAF7", stroke: "#1D9E75",
+    desc: "PyQt6 widgets, screens, presenters, and UI components. The GUI never talks directly to domain objects — it reads ViewModels via presenters and fires controller commands.",
     classes: [
       { id:"App",                  role:"Main QMainWindow / entry point",    fields:["-_controller: AppController","-_router: ScreenRouter"], methods:["+__init__(controller)","+closeEvent(event)"] },
       { id:"ScreenRouter",         role:"Screen navigation manager",         fields:["-_stack: QStackedWidget","-_screens: Dict","-_history: list"], methods:["+register(name,screen)","+show(name)","+back()"] },
@@ -91,7 +134,7 @@ const LAYERS = {
   },
   app: {
     label: "App Layer",
-    color: "#534AB7", light: "#EEEDFE", stroke: "#7F77DD",
+    color: "#534AB7", light: "#F4F3FF", stroke: "#7F77DD",
     desc: "The controller and facade coordinate all user actions. AppController receives GUI signals; ApplicationFacade orchestrates services. Neither contains business logic.",
     classes: [
       { id:"AppController",    role:"GUI command handler (QObject)",  fields:["-_facade: ApplicationFacade","-_worker: SchedulerWorker"], methods:["+load_file(path,type,mode)","+generate_schedules(program_ids)","+cancel_scheduling()","+update_exam_periods(vms)","+get_schedule_view(index)","+get_page_info()","+on_app_closing()"] },
@@ -107,7 +150,7 @@ const LAYERS = {
   },
   services: {
     label: "Services Layer",
-    color: "#185FA5", light: "#E6F1FB", stroke: "#378ADD",
+    color: "#185FA5", light: "#F2F7FC", stroke: "#378ADD",
     desc: "Stateless application services — each owns a single responsibility. They transform data, orchestrate domain calls, and communicate via DTOs and ViewModels.",
     classes: [
       { id:"FileImportService",    role:"Parse + validate + merge files",    fields:["-_cache: InputCacheService","-_parser_factory: ParserFactory","-_validators: ValidatorPipeline","-_merger: InputDataMerger","-_state: InputDataState"], methods:["+load_file(path,type,mode): ImportResult"] },
@@ -124,7 +167,7 @@ const LAYERS = {
   },
   domain: {
     label: "Domain Layer",
-    color: "#993C1D", light: "#FAECE7", stroke: "#D85A30",
+    color: "#993C1D", light: "#FAF1EE", stroke: "#D85A30",
     desc: "Pure Python — no frameworks, no I/O. The scheduling algorithm, conflict checkers, slot builder, observer interfaces, and domain entities live here.",
     classes: [
       { id:"Scheduler",                role:"Backtracking search engine",      fields:["-_checkers: List[IConflictChecker]"], methods:["+generateSchedules(slots,observer,max)","-_backtrack(index,slots,...)"] },
@@ -145,7 +188,7 @@ const LAYERS = {
   },
   infra: {
     label: "Infrastructure",
-    color: "#5F5E5A", light: "#F1EFE8", stroke: "#888780",
+    color: "#5F5E5A", light: "#F4F4F3", stroke: "#888780",
     desc: "Everything touching disk, SQLite, multiprocessing IPC, file hashing, and parsing. No business logic — pure I/O adapters the service layer depends on via interfaces.",
     classes: [
       { id:"SQLiteScheduleRepository", role:"Schedule persistence (SQLite)",  fields:["-_db_path: str","-_total_count: int","-_lock: Lock"], methods:["+insert_batch(batch)","+insert_compressed_batch(data,count)","+get_window(offset,limit)","+count()","+clear()"] },
@@ -172,16 +215,16 @@ const LAYERS = {
 };
 
 const LEGEND_ITEMS = [
-  { color: "#0F6E56", label: "GUI" },
-  { color: "#534AB7", label: "Application" },
-  { color: "#185FA5", label: "Services" },
-  { color: "#993C1D", label: "Domain" },
-  { color: "#5F5E5A", label: "Infrastructure" },
+  { color: "#0F6E56", label: "GUI Components" },
+  { color: "#534AB7", label: "Application Logic" },
+  { color: "#185FA5", label: "Core Services" },
+  { color: "#993C1D", label: "Domain Entities" },
+  { color: "#5F5E5A", label: "Infrastructure Adapters" },
 ];
 
 const legendEl = document.getElementById('legend');
 LEGEND_ITEMS.forEach(l => {
-  legendEl.innerHTML += `<span><span class="legend-dot" style="background:${l.color}"></span>${l.label}</span>`;
+  legendEl.innerHTML += `<span style="margin-right:16px;"><span class="legend-dot" style="background:${l.color}"></span>${l.label}</span>`;
 });
 
 let activeLayer = 'gui';
@@ -206,18 +249,18 @@ function renderDiagram(key) {
   const layer = LAYERS[key];
   document.getElementById('layerDesc').textContent = layer.desc;
   const classes = layer.classes;
-  const COL = 3;
-  const W = 210, GAP_X = 18, GAP_Y = 14, PAD_X = 16, PAD_Y = 20;
-  const LINE_H = 13;
-  const HEADER_H = 42;
-  const DIVIDER_Y = 38;
+  const COL = 4; // Increased to 4 columns to make blocks smaller and tighter
+  const W = 175, GAP_X = 14, GAP_Y = 14, PAD_X = 10, PAD_Y = 15;
+  const LINE_H = 11;
+  const HEADER_H = 36;
+  const DIVIDER_Y = 32;
 
   function cardHeight(cls) {
-    const fc = Math.min(cls.fields.length, 3);
-    const mc = Math.min(cls.methods.length, 4);
-    const extra = (cls.fields.length > 3 ? 1 : 0) + (cls.methods.length > 4 ? 1 : 0);
+    const fc = Math.min(cls.fields.length, 2);
+    const mc = Math.min(cls.methods.length, 3);
+    const extra = (cls.fields.length > 2 ? 1 : 0) + (cls.methods.length > 3 ? 1 : 0);
     const total = fc + mc + extra;
-    return HEADER_H + (total > 0 ? 8 + total * LINE_H + 6 : 10);
+    return HEADER_H + (total > 0 ? 6 + total * LINE_H + 4 : 8);
   }
 
   const rows = Math.ceil(classes.length / COL);
@@ -232,25 +275,21 @@ function renderDiagram(key) {
   }
 
   const totalW = COL * W + (COL - 1) * GAP_X;
-  const startX = Math.max(PAD_X, (680 - totalW) / 2);
-  const svgH = PAD_Y + rowHeights.reduce((a, h) => a + h + GAP_Y, 0) - GAP_Y + PAD_Y + 4;
-  const svgW = 680;
+  const canvasW = 760;
+  const startX = Math.max(PAD_X, (canvasW - totalW) / 2);
+  const svgH = PAD_Y + rowHeights.reduce((a, h) => a + h + GAP_Y, 0) - GAP_Y + PAD_Y;
+  const svgW = canvasW;
 
   let svg = `<svg width="100%" viewBox="0 0 ${svgW} ${svgH}" role="img">`;
-  svg += `<title>${layer.label} UML classes</title>`;
-  svg += `<desc>Interactive class diagram for the ${layer.label} — click any card to expand details</desc>`;
   svg += `<style>
-    .cls-card text { font-family: var(--font-sans, sans-serif); }
-    .cls-card .cls-bg { transition: opacity .12s; }
-    .cls-card:hover .cls-bg { opacity: .82; }
-    .cls-card { cursor: pointer; }
-    .cls-divider { stroke: ${layer.stroke}; stroke-width: 0.5; opacity: .5; }
-    .cls-title { font-size: 13px; font-weight: 500; fill: ${layer.color}; }
-    .cls-role  { font-size: 10px; fill: ${layer.stroke}; }
-    .cls-field { font-size: 10px; fill: #185FA5; }
-    .cls-method{ font-size: 10px; fill: #3B6D11; }
+    .cls-card text { font-family: -apple-system, sans-serif; }
+    .cls-divider { stroke: ${layer.stroke}; stroke-width: 0.5; opacity: .4; }
+    .cls-title { font-size: 11px; font-weight: 600; fill: ${layer.color}; }
+    .cls-role  { font-size: 9px; fill: #6c757d; }
+    .cls-field { font-size: 9px; fill: #185FA5; font-family: monospace; }
+    .cls-method{ font-size: 9px; fill: #2b6106; font-family: monospace; }
     .cls-border{ fill: ${layer.light}; stroke: ${layer.stroke}; stroke-width: 0.8; }
-    .cls-count { font-size: 9px; fill: ${layer.stroke}; opacity: .7; }
+    .cls-count { font-size: 8px; fill: #868e96; font-style: italic; }
   </style>`;
 
   let rowY = PAD_Y;
@@ -263,34 +302,34 @@ function renderDiagram(key) {
       const x = startX + c * (W + GAP_X);
       const y = rowY;
       const H = rh;
-      const fc = Math.min(cls.fields.length, 3);
-      const mc = Math.min(cls.methods.length, 4);
+      const fc = Math.min(cls.fields.length, 2);
+      const mc = Math.min(cls.methods.length, 3);
 
       svg += `<g class="cls-card" onclick="showDetail('${key}','${cls.id}')">`;
-      svg += `<rect class="cls-bg cls-border" x="${x}" y="${y}" width="${W}" height="${H}" rx="8"/>`;
-      svg += `<line class="cls-divider" x1="${x+8}" y1="${y+DIVIDER_Y}" x2="${x+W-8}" y2="${y+DIVIDER_Y}"/>`;
-      svg += `<text class="cls-title" x="${x+W/2}" y="${y+15}" text-anchor="middle" dominant-baseline="central">${cls.id}</text>`;
-      const roleStr = cls.role.length > 34 ? cls.role.slice(0,33)+'…' : cls.role;
-      svg += `<text class="cls-role" x="${x+W/2}" y="${y+29}" text-anchor="middle" dominant-baseline="central">${roleStr}</text>`;
+      svg += `<rect class="cls-bg cls-border" x="${x}" y="${y}" width="${W}" height="${H}" rx="6"/>`;
+      svg += `<line class="cls-divider" x1="${x+6}" y1="${y+DIVIDER_Y}" x2="${x+W-6}" y2="${y+DIVIDER_Y}"/>`;
+      svg += `<text class="cls-title" x="${x+W/2}" y="${y+12}" text-anchor="middle" dominant-baseline="central">${cls.id}</text>`;
+      const roleStr = cls.role.length > 28 ? cls.role.slice(0,27)+'…' : cls.role;
+      svg += `<text class="cls-role" x="${x+W/2}" y="${y+24}" text-anchor="middle" dominant-baseline="central">${roleStr}</text>`;
 
-      let lineY = y + HEADER_H + 4;
+      let lineY = y + HEADER_H + 3;
       for (let f = 0; f < fc; f++) {
         const lbl = cls.fields[f].replace(/[<>]/g,'');
-        svg += `<text class="cls-field" x="${x+8}" y="${lineY}" dominant-baseline="central">${lbl.length>31?lbl.slice(0,30)+'…':lbl}</text>`;
+        svg += `<text class="cls-field" x="${x+6}" y="${lineY}" dominant-baseline="central">${lbl.length>25?lbl.slice(0,24)+'…':lbl}</text>`;
         lineY += LINE_H;
       }
-      if (cls.fields.length > 3) {
-        svg += `<text class="cls-count" x="${x+8}" y="${lineY}" dominant-baseline="central">+${cls.fields.length-3} more fields…</text>`;
+      if (cls.fields.length > 2) {
+        svg += `<text class="cls-count" x="${x+6}" y="${lineY}" dominant-baseline="central">+${cls.fields.length-2} parameters…</text>`;
         lineY += LINE_H;
       }
-      if (mc > 0) lineY += 2;
+      if (mc > 0) lineY += 1;
       for (let m = 0; m < mc; m++) {
         const lbl = cls.methods[m].replace(/[<>]/g,'');
-        svg += `<text class="cls-method" x="${x+8}" y="${lineY}" dominant-baseline="central">${lbl.length>31?lbl.slice(0,30)+'…':lbl}</text>`;
+        svg += `<text class="cls-method" x="${x+6}" y="${lineY}" dominant-baseline="central">${lbl.length>25?lbl.slice(0,24)+'…':lbl}</text>`;
         lineY += LINE_H;
       }
-      if (cls.methods.length > 4) {
-        svg += `<text class="cls-count" x="${x+8}" y="${lineY}" dominant-baseline="central">+${cls.methods.length-4} more methods…</text>`;
+      if (cls.methods.length > 3) {
+        svg += `<text class="cls-count" x="${x+6}" y="${lineY}" dominant-baseline="central">+${cls.methods.length-3} methods…</text>`;
       }
       svg += `</g>`;
     }
@@ -309,20 +348,29 @@ function showDetail(layerKey, classId) {
   document.getElementById('dpRole').textContent = cls.role;
   const el = document.getElementById('dpMembers');
   el.innerHTML = '';
-  cls.fields.forEach(f => {
-    const d = document.createElement('div');
-    d.className = 'detail-member field';
-    d.textContent = f;
-    el.appendChild(d);
-  });
-  cls.methods.forEach(m => {
-    const d = document.createElement('div');
-    d.className = 'detail-member method';
-    d.textContent = m;
-    el.appendChild(d);
-  });
+  
+  if(cls.fields.length === 0 && cls.methods.length === 0) {
+    el.innerHTML = '<div style="color:#868e96; font-style:italic; font-size:12px;">No attributes or actions declared.</div>';
+  } else {
+    cls.fields.forEach(f => {
+      const d = document.createElement('div');
+      d.className = 'detail-member field';
+      d.textContent = f;
+      el.appendChild(d);
+    });
+    cls.methods.forEach(m => {
+      const d = document.createElement('div');
+      d.className = 'detail-member method';
+      d.textContent = m;
+      el.appendChild(d);
+    });
+  }
   document.getElementById('detailPanel').classList.add('show');
 }
 
 renderDiagram('gui');
 </script>
+</body>
+</html>
+
+```
