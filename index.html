@@ -38,6 +38,11 @@ body {
   font-size: 13px;
   color: #868e96;
 }
+#totalCount {
+  font-size: 13px;
+  color: #868e96;
+  margin-bottom: 10px;
+}
 .layer-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .layer-tab {
   padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
@@ -83,12 +88,6 @@ body {
 .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 12px; color: #6c757d; }
 .legend-item { display: flex; align-items: center; gap: 6px; }
 .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.stats-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
-.stat-chip {
-  font-size: 12px; padding: 4px 10px; border-radius: 12px;
-  background: #f1f3f5; color: #495057; border: 1px solid #dee2e6;
-}
-.stat-chip strong { color: #212529; }
 </style>
 </head>
 <body>
@@ -98,7 +97,7 @@ body {
     <span class="subtitle">Interactive UML Blueprint · Exam Scheduler</span>
   </div>
 
-  <div id="totalCount" style="font-size:13px; color:#868e96; margin-bottom:10px;"></div>
+  <div id="totalCount"></div>
   <div class="layer-tabs" id="tabs"></div>
   <div class="legend" id="legend"></div>
   <div class="layer-desc" id="layerDesc"></div>
@@ -416,7 +415,8 @@ const LEGEND_ITEMS = [
   { color: "#5F5E5A", label: "Infrastructure" },
 ];
 
-// // Total class count displayed above the layer tabs.
+// Total class count displayed above the layer tabs.
+const layerEntries = Object.entries(LAYERS);
 const totalClasses = Object.values(LAYERS).reduce((s, l) => s + l.classes.length, 0);
 document.getElementById('totalCount').textContent = `${totalClasses} classes total`;
 
@@ -429,6 +429,14 @@ LEGEND_ITEMS.forEach(l => {
 // Tabs
 let activeLayer = 'gui';
 const tabsEl = document.getElementById('tabs');
+layerEntries.forEach(([key, layer]) => {
+  const btn = document.createElement('button');
+  btn.className = 'layer-tab' + (key === activeLayer ? ' active' : '');
+  btn.dataset.layer = key;
+  btn.textContent = `${layer.label}  (${layer.classes.length})`;
+  btn.onclick = () => setLayer(key);
+  tabsEl.appendChild(btn);
+});
 
 function setLayer(key) {
   activeLayer = key;
@@ -517,7 +525,6 @@ function renderDiagram(key) {
       svg += `<rect class="cls-bg" x="${x}" y="${y}" width="${W}" height="${H}" rx="7"/>`;
       svg += `<line class="cls-divider" x1="${x+6}" y1="${y+DIVIDER_Y}" x2="${x+W-6}" y2="${y+DIVIDER_Y}"/>`;
 
-      // Title
       const titleStr = cls.id.length > 22 ? cls.id.slice(0,21)+'…' : cls.id;
       svg += `<text class="cls-title" x="${x+W/2}" y="${y+12}" text-anchor="middle" dominant-baseline="central">${titleStr}</text>`;
       const roleStr = cls.role.length > 30 ? cls.role.slice(0,29)+'…' : cls.role;
