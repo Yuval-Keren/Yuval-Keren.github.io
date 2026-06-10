@@ -429,14 +429,6 @@ LEGEND_ITEMS.forEach(l => {
 // Tabs
 let activeLayer = 'gui';
 const tabsEl = document.getElementById('tabs');
-layerEntries.forEach(([key, layer]) => {
-  const btn = document.createElement('button');
-  btn.className = 'layer-tab' + (key === activeLayer ? ' active' : '');
-  btn.dataset.layer = key;
-  btn.textContent = `${layer.label}  (${layer.classes.length})`;
-  btn.onclick = () => setLayer(key);
-  tabsEl.appendChild(btn);
-});
 
 function setLayer(key) {
   activeLayer = key;
